@@ -2,9 +2,9 @@ export PATH='/opt/IBM/Informix_Software_Bundle/bin':$PATH:.
 
 export INFORMIXDIR='/opt/IBM/Informix_Software_Bundle'
 
-export INFORMIXSERVER=ol_informix1210 
+export INFORMIXSERVER=ol_informix1210_1 
 
-export ONCONFIG=onconfig.ol_informix1210
+export ONCONFIG=onconfig.ol_informix1210_1
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib/cli:$INFORMIXDIR/lib/esql
 
