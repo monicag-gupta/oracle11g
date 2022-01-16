@@ -1,9 +1,19 @@
-[root@localhost ~]# export PATH='/opt/IBM/Informix_Software_Bundle/bin':$PATH:.
-[root@localhost ~]# export INFORMIXDIR='/opt/IBM/Informix_Software_Bundle'[root@localhost ~]# export INFORMIXSERVER=ol_informix1210 
-[root@localhost ~]# export ONCONFIG=onconfig.ol_informix1210
-[root@localhost ~]# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib/cli:$INFORMIXDIR/lib/esql
-[root@localhost ~]# chown informix:informix /opt/IBM/Informix_Software_Bundle/etc/sqlhosts
-[root@localhost ~]# chmod 660  /opt/IBM/Informix_Software_Bundle/etc/sqlhosts
+export PATH='/opt/IBM/Informix_Software_Bundle/bin':$PATH:.
+
+export INFORMIXDIR='/opt/IBM/Informix_Software_Bundle'
+
+export INFORMIXSERVER=ol_informix1210 
+
+export ONCONFIG=onconfig.ol_informix1210
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib/cli:$INFORMIXDIR/lib/esql
+
+chown informix:informix /opt/IBM/Informix_Software_Bundle/etc/sqlhosts
+
+chmod 660  /opt/IBM/Informix_Software_Bundle/etc/sqlhosts
+
 onclean –ky
+
 oninit –i
+
 oninit
