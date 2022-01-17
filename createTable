@@ -1,0 +1,36 @@
+CREATE TABLE people (
+id INT PRIMARY KEY,
+name VARCHAR(255),
+age INT
+);
+
+
+
+INSERT INTO people VALUES (2, 'John', 24);
+INSERT INTO people VALUES (3,'Ishu', 22);
+INSERT INTO people VALUES (4, 'Jane', 22);
+INSERT INTO people VALUES (5, 'Ram', 20);
+INSERT INTO people VALUES (6, 'Suman', 18);
+INSERT INTO people VALUES (7, 'Suman', 18);
+
+
+dbaccess - - 2>error.log <<SQLSTMT
+database training;
+CREATE TABLE people (
+id INT PRIMARY KEY,
+name VARCHAR(255),
+age INT
+);
+SQLSTMT
+
+
+
+dbaccess - - 2>error.log <<SQLSTMT
+database training;
+INSERT INTO people VALUES (2, 'John', 24);
+INSERT INTO people VALUES (3,'Ishu', 22);
+INSERT INTO people VALUES (4, 'Jane', 22);
+INSERT INTO people VALUES (5, 'Ram', 20);
+INSERT INTO people VALUES (6, 'Suman', 18);
+INSERT INTO people VALUES (7, 'Suman', 18);
+SQLSTMT
