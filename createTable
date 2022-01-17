@@ -1,3 +1,29 @@
+Create table members 
+( id int, first_name varchar(20), last_name varchar(20), movies_id int); 
+Insert into members values (1,'Adam','Smith',1);
+Insert into members values  (2, 'Ravi', 'Kumar', 2);
+Insert into members values (3, 'Susan', 'Davidson', 5);
+Insert into members values (4, 'Jenny', 'Adrianna', 8);
+Insert into members values (6,'Lee','Pong',10);
+
+
+Create table movies (id int, title varchar(50), category varchar(30)); 
+Insert into movies values (1,'ASSASSINS CREED: EMBERS','Animations');
+Insert into movies values (2,'Real Steel(2012)','Animations');
+Insert into movies values (3,'Alvin and the Chipmunks','Animations');
+Insert into movies values (4,'The Adventures of Tin Tin','Animations');
+Insert into movies values (5,'Safe (2012)','Action');
+Insert into movies values (6,'Safe House(2012)','Action');
+Insert into movies values (7,'3 Idiots','Drama');
+Insert into movies values (8,'Ghazni','Drama');
+Insert into movies values (9,'Nayak','Drama');
+Insert into movies values (10,'Marley and me','Family');
+
+
+
+
+
+
 Members:
 (1,'Adam','Smith',1), 
 (2, 'Ravi', 'Kumar', 2), 
