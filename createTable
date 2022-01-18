@@ -1,3 +1,25 @@
+CREATE TABLE Ppl(  
+    id int NOT NULL,  
+    name varchar(45) NOT NULL,  
+    occupation varchar(35) NOT NULL,  
+    age int,  
+    PRIMARY KEY (id)  
+); 
+INSERT INTO Ppl(id, name, occupation, age)
+VALUES (101, 'Peter', 'Engineer', 32);
+INSERT INTO Ppl(id, name, occupation, age)
+VALUES (102, 'Joseph', 'Developer',30); 
+INSERT INTO Ppl(id, name, occupation, age)
+VALUES (103,'Mike','Leader',28);  
+INSERT INTO Ppl(id, name, occupation, age)
+VALUES (104,'Stephen','Scientist',45);
+
+
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS Products  (	
       Product_ID int NOT NULL,
       Product_name varchar(45) NOT NULL,
