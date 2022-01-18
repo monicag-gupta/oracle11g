@@ -1,3 +1,17 @@
+create table emp(
+eid int primary key,
+ename varchar(20),
+mid int,
+sal int
+);
+
+insert into Emp values(1,'A1',3,1000);
+insert into Emp values(2,'A2',3,2000);
+insert into Emp values(3,'A3',4,3000);
+insert into Emp values(4,'A4',4,1000);
+insert into Emp values(5,'A5',4,2000);
+
+
 SELECT members.first_name, members.last_name, movies.title FROM 
 members, movies WHERE movies.id = members.movies_id;
 
