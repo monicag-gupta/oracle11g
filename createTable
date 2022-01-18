@@ -1,3 +1,47 @@
+CREATE TABLE IF NOT EXISTS Customers (
+     Customer_ID INT NOT NULL,
+     FirstName VARCHAR(45) NOT NULL,
+     LastName VARCHAR(45) NOT NULL,
+     Address VARCHAR(50),
+     City VARCHAR(20),
+     Postal_Code INT,
+     PRIMARY KEY(Customer_ID)
+);
+
+Drop table products;
+
+
+CREATE TABLE IF NOT EXISTS Products (
+    Product_ID int NOT NULL,
+    Product_Name varchar(45) NOT NULL,
+    Quantity_In_Hand int NOT NULL,
+    Re_Order_Quantity INT NULL,
+    Re_Order_Level INT NULL,
+    Price INT NULL,
+    PRIMARY KEY(Product_ID),
+    UNIQUE(Product_name)
+);
+
+CREATE TABLE IF NOT EXISTS Customer_Order
+ (
+     Order_ID INT NOT NULL, 
+     Product_ID INT NOT NULL,
+     Customer_ID INT NOT NULL,
+     Quantity_Ordered INT NOT NULL,  
+     FOREIGN KEY (Product_ID)
+           REFERENCES Products(Product_ID)
+
+  );
+  
+  
+
+
+
+
+
+
+
+
 CREATE TABLE Ppl(  
     id int NOT NULL,  
     name varchar(45) NOT NULL,  
