@@ -1,3 +1,16 @@
+SQL WHERE Clause with AND condition
+     Select * from people where age<22 and name='Suman';
+WHERE Clause with OR condition
+     Select * from people where age<22 or name='Jane';
+SQL WHERE Clause with combination of AND & OR conditions
+     Select * from people where (age<22 and name='Suman') or name='Jane';
+SQL WHERE Clause with NOT condition
+The NOT operator displays a record if the condition(s) is NOT TRUE.
+     Select * from people where not age<22;
+
+
+
+
 CREATE TABLE IF NOT EXISTS Customers (
      Customer_ID INT NOT NULL,
      FirstName VARCHAR(45) NOT NULL,
