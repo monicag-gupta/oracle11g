@@ -1,3 +1,21 @@
+CREATE TABLE IF NOT EXISTS Products  (	
+      Product_ID int NOT NULL,
+      Product_name varchar(45) NOT NULL,
+      Quantity_in_hand int NOT NULL,
+      Re_order_quantity INT,
+      Re_order_level INT,
+      Price INT NULL,
+      PRIMARY KEY(Product_ID)
+);
+
+
+
+
+
+
+
+
+
 Create table members 
 ( id int, first_name varchar(20), last_name varchar(20), movies_id int); 
 Insert into members values (1,'Adam','Smith',1);
