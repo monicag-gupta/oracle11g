@@ -1,3 +1,26 @@
+SELECT members.first_name, members.last_name, movies.title FROM 
+members, movies WHERE movies.id = members.movies_id;
+
+SELECT A.first_name , A.last_name , B.title FROM members 
+AS A INNER JOIN movies AS B ON B.id = A.movies_id;
+
+SELECT A.title , B.first_name , B.last_name FROM 
+movies AS A LEFT JOIN members AS B ON 
+B.movies_id = A.id;
+
+SELECT A.first_name , A.last_name, 
+B.title FROM members AS A RIGHT JOIN movies 
+AS B ON B.id = A.movies_id;
+
+SELECT * FROM movies CROSS JOIN members;
+
+SELECT a.ID, a.first_name, a.last_name, a.movies_id 
+FROM members a, members b WHERE a.id = b.movies_id;
+
+
+
+
+
 select count(*) from people;
 select count(distinct age) from people;
 select avg(age) from people;
