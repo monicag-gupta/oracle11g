@@ -1,3 +1,17 @@
+select count(*) from people;
+select count(distinct age) from people;
+select avg(age) from people;
+select sum(age) from people;
+select min(age) from people;
+select max(age) from people;
+select * from people limit 1;
+select * from people order by age desc limit 2; 
+--two eldest people
+
+
+
+
+
 SQL WHERE Clause with AND condition
      Select * from people where age<22 and name='Suman';
 WHERE Clause with OR condition
