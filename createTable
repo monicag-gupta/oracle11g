@@ -1,3 +1,5 @@
+select sum(e1.sal) from Emp1 as e1 join Emp1 as e2 on e1.mid=e2.eid where e2.ename='A3';
+
 create table emp(
 eid int primary key,
 ename varchar(20),
