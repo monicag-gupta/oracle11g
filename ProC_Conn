@@ -1,0 +1,62 @@
+Login as: root; password: 1234
+# su - oracle
+$ cd /u01/app/oracle/product/12.1.0/dbhome_1/bin
+$ export ORACLE_SID=orcl
+$ export ORACLE_HOME=/u01/app/oracle/product/12.1.0/dbhome_1
+$ export PATH=$ORACLE_HOME/bin:$PATH:.
+$ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+
+
+[oracle@localhost bin]$ sqlplus
+Username: Sys as sysdba
+Password: Passw0rd
+SQL>alter session set "_ORACLE_SCRIPT"=true;
+SQL> CREATE USER hello IDENTIFIED BY hello DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+SQL> GRANT CREATE SESSION, CONNECT, RESOURCE TO hello;
+SQL> CONNECT hello/hello;
+SQL> CREATE TABLE hello_world (msg VARCHAR2(50));
+SQL> quit
+In  another terminal:
+		i. # xhost +
+[oracle@localhost bin]$ gedit hello.pc
+
+
+#include <stdio.h>
+#include <string.h>
+#include <sqlda.h>
+#include <sqlcpr.h>
+EXEC SQL BEGIN DECLARE SECTION;
+VARCHAR uid[30];
+VARCHAR pwd[30];
+EXEC SQL END DECLARE SECTION;
+EXEC SQL INCLUDE SQLCA.H;
+void main()
+{
+   strcpy(uid.arr,"hello");
+   uid.len =strlen(uid.arr);
+   strcpy(pwd.arr,"hello");
+   pwd.len = strlen(pwd.arr);
+   EXEC SQL CONNECT :uid IDENTIFIED BY :pwd;
+   printf("Connected to Oracle12c using hello/hello\n");
+   EXEC SQL COMMIT WORK RELEASE;
+   return;
+}  /* end of main */ 
+
+
+
+[oracle@localhost bin]$ gedit hello.pc
+[oracle@localhost bin]$ proc hello.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+
+Pro*C/C++: Release 12.1.0.1.0 - Production on Wed Jan 16 12:23:17 2019
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+System default option values taken from: /u01/app/oracle/product/12.1.0/precomp/admin/pcscfg.cfg
+
+[oracle@localhost bin]$ gcc -o hello hello.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+[oracle@localhost bin]$ ./hello
+Connected to Oracle12c using hello/hello
+
+
+
+
