@@ -1,0 +1,76 @@
+/*
+Login as: root; password: 1234
+Open Terminal
+
+su - oracle
+cd /u01/app/oracle/product/12.1.0/dbhome_1/bin
+export ORACLE_SID=orcl
+export ORACLE_HOME=/u01/app/oracle/product/12.1.0/dbhome_1
+export PATH=$ORACLE_HOME/bin:$PATH:.
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+gedit hello2.pc
+
+*/
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+/* Declare error handling function. */
+void sql_error();
+int main(int argc, char** argv){
+char user[]="hello";
+char pwd[]="hello";
+char msg_buf[51]="";
+/* Register sql_error() as the error handler. */
+EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+EXEC SQL
+INSERT INTO hello_world
+VALUES ('Hello world!');
+EXEC SQL COMMIT;
+
+EXEC SQL
+SELECT msg
+INTO :msg_buf
+FROM hello_world
+WHERE rownum <= 1;
+printf("%s\n", msg_buf);
+return(0);
+}
+void sql_error(char *msg) {
+char err_msg[128];
+int buf_len, msg_len;
+EXEC SQL WHENEVER SQLERROR CONTINUE;
+printf("%s\n", msg);
+buf_len = sizeof (err_msg);
+sqlglm(err_msg, &buf_len, &msg_len);
+if (msg_len > buf_len)
+msg_len = buf_len;
+printf("%.*s\n", msg_len, err_msg);
+EXEC SQL ROLLBACK RELEASE;
+exit(1);
+}
+
+
+
+/*
+proc hello2.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+
+gcc -o hello2 hello2.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+
+sqlplus
+SQL> sys as sysdba
+SQL> shutdown immediate
+SQL> startup open
+SQL> quit
+
+./hello2
+Hello world!
+
+*/
+
+
+
