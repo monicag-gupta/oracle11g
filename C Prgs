@@ -30,11 +30,11 @@ $ ls -l *.s
 
 For above code, compiler does optimization, that’s why the size of assembly code will reduce.
 Output:
-$ gcc -O3 volatile.c -o volatile –save-temps
-$ ./volatile
+$ gcc -O3 aPrg6.c -o aPrg6 –save-temps
+$ ./aPrg6
  Initial value of local : 10
  Modified value of local: 10
-$ ls -l volatile.s
+$ ls -l aPrg6.s
 -rw-r–r– 1 user user 626 2016-11-19 16:21 volatile.s
 
 
