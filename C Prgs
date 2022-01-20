@@ -37,6 +37,33 @@ $ ./aPrg6
 $ ls -l aPrg6.s
 -rw-r–r– 1 user user 626 2016-11-19 16:21 volatile.s
 
+change the code to make the const local volatile:
+/* Compile code with optimization option */
+#include <stdio.h>
+ 
+int main(void)
+{
+    const volatile int local = 10;
+    int *ptr = (int*) &local;
+ 
+    printf("Initial value of local : %d \n", local);
+ 
+    *ptr = 100;
+ 
+    printf("Modified value of local: %d \n", local);
+ 
+    return 0;
+}
+
+
+Output:
+$ gcc -O3 aPrg6.c -o aPrg6 –save-temp
+$ ./aPrg6
+ Initial value of local : 10
+ Modified value of local: 100
+$ ls -l aPrg6.s
+-rw-r–r– 1 user user 711 2016-11-19 16:22 volatile.s
+  Note : The above codes are compiler specific and may not work on all compilers. 
 
 
 
