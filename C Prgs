@@ -1,3 +1,30 @@
+‘main.c’ :
+#include "hello.h"
+int main (void) {
+  hello ("world");
+  return 0;
+}
+‘hello.h’ :
+void hello (const char * name);
+‘hello_fn.c’:
+#include <stdio.h>
+#include "hello.h"
+void hello (const char * name) {
+  printf ("Hello, %s!\n", name);
+}
+
+$ gcc -Wall main.c hello_fn.c -o newhello
+$ ./newhello
+Hello, world!
+
+
+
+
+
+
+
+
+
 cPrg6.c
 
 /* Compile code without optimization option */
