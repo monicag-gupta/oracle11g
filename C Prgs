@@ -1,3 +1,40 @@
+cPrg6.c
+
+/* Compile code without optimization option */
+#include <stdio.h>
+int main(void)
+{
+    const int local = 10; //non volatile gcc not using –O option
+    int *ptr = (int*) &local;
+ 
+    printf("Initial value of local : %d \n", local);
+ 
+    *ptr = 100;
+ 
+    printf("Modified value of local: %d \n", local);
+ 
+    return 0;
+}
+
+When we compile code with “–save-temps” option of gcc it generates 3 output files
+1) preprocessed code (having .i extention)
+2) assembly code (having .s extention) and
+3) object code (having .o option).
+We compile code without optimization, that’s why the size of assembly code will be larger.
+$ gcc cPrg6.c -o cPrg6 –save-temps 
+$ ./cPrg6 
+Initial value of local : 10 
+Modified value of local: 100 
+$ ls -l *.s 
+-rw-r–r– 1 user user 731 2016-11-19 16:19 cPrg6.s 
+
+
+
+
+
+
+
+
 cPrg2.c
 
 #include <stdio.h>
