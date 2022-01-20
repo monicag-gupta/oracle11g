@@ -28,6 +28,15 @@ Modified value of local: 100
 $ ls -l *.s 
 -rw-r–r– 1 user user 731 2016-11-19 16:19 cPrg6.s 
 
+For above code, compiler does optimization, that’s why the size of assembly code will reduce.
+Output:
+$ gcc -O3 volatile.c -o volatile –save-temps
+$ ./volatile
+ Initial value of local : 10
+ Modified value of local: 10
+$ ls -l volatile.s
+-rw-r–r– 1 user user 626 2016-11-19 16:21 volatile.s
+
 
 
 
