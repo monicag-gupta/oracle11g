@@ -162,5 +162,5 @@ DATE=`date`
 echo 'Hello All, \n Current Date: $DATE'
 echo " Hello All, \n Current Date: $DATE " 
 echo Hello All, \n Current Date: $DATE
-echo –e " Hello All, \n Current Date: $DATE "
+echo -e " Hello All, \n Current Date: $DATE "
 
