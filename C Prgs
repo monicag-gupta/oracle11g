@@ -1,0 +1,13 @@
+cPrg1.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#define INIT_X_VALUE 10 
+#define INIT_Y_VALUE 100 
+int main(int argc, char * argv[]){ 
+     int x, y; 
+     x = INIT_X_VALUE; 
+     y = INIT_Y_VALUE; 
+     printf("X is %d, Y is %d\n", x, y); 
+     return 0;
+}
