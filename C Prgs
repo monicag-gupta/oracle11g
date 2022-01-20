@@ -1,3 +1,86 @@
+cPrg2.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#define DEBUG 1
+#ifdef DEBUG
+#define debug_printf(...) printf(__VA_ARGS) 
+#else 
+#define debug_printf(...) 
+#endif 
+int main(int argc, char * argv[]){ 
+     debug_printf("This is a debug message\n"); 
+     return 0; 
+}
+
+
+cPrg3.c
+
+#include<stdio.h>
+#define NUM 10
+
+int main()
+{
+// Define another macro if MACRO NUM is defined
+
+#ifdef NUM
+      #define MAX 20 
+#endif
+
+printf("MAX number is : %d",MAX);
+}
+
+
+
+cPrg4.c
+#include<stdio.h>
+
+void main()
+{
+
+#ifdef MAX 
+    #define MIN 90
+#else
+    #define MIN 100
+#endif
+
+printf("MIN number : %d",MIN);
+}
+/*
+Output :
+MIN number : 100 */
+
+
+
+cPrg5.c
+
+#include<stdio.h>
+
+int main(){
+
+#ifdef __DATE__
+         printf("%s",__DATE__);
+    #else
+         printf("__DATE__ is not defined");
+    #endif
+
+return 0;
+}
+/*
+Output :
+
+Current Date is Printed */
+
+
+
+
+
+
+
+
+
+
+
 cPrg1.c
 
 #include <stdio.h>
