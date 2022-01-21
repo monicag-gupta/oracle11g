@@ -10,6 +10,8 @@ $ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
 [oracle@localhost bin]$ sqlplus
 Username: Sys as sysdba
 Password: Passw0rd
+SQL> shutdown immediate
+SQL> startup open
 SQL>alter session set "_ORACLE_SCRIPT"=true;
 SQL> CREATE USER hello IDENTIFIED BY hello DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
 SQL> GRANT CREATE SESSION, CONNECT, RESOURCE TO hello;
