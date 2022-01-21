@@ -23,8 +23,12 @@ void myPrintHelloMake(void);
 
 gedit makefile
 
-hellomake: hellomake.c hellofunc.c 
-       gcc -o hellomake hellomake.c hellofunc.c  hellomake.h
+all: hello
+hello: hellomake.c hellofunc.c hellomake.h
+	gcc -o hello hellomake.c hellofunc.c  hellomake.h -I.
+clean:
+	rm *o hello
+
        
 
 make
