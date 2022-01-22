@@ -31,9 +31,12 @@ int main(int argc, char** argv){
 	scanf("%[^\n]",msg_buf);
 	EXEC SQL WHENEVER SQLERROR goto sql_error;
 	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
-	EXEC SQL EXECUTE BEGIN  
-			hello.helloprocins(:msg_buf); 
-	END; END-EXEC;
+	EXEC SQL 
+		EXECUTE 
+			BEGIN  
+				helloprocins(:msg_buf); 
+			END; 	
+		END-EXEC;
 	printf("\nThe value %s is inserted\n", msg_buf);
 	return(0);
 sql_error: 
