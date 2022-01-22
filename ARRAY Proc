@@ -1,0 +1,53 @@
+Login as: root; password: 1234
+# su - oracle
+$ cd /u01/app/oracle/product/12.1.0/dhhome_1/bin
+$ export ORACLE_SID=orcl
+$ export ORACLE_HOME=/u01/app/oracle/product/12.1.0/dbhome_1
+$ export PATH=$ORACLE_HOME/bin:$PATH:.
+$ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+$ sqlplus
+SQL>  sys as sysdba
+SQL> shutdown immediate
+SQL> startup open
+SQL> CREATE USER hello IDENTIFIED BY hello DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+SQL> GRANT CREATE SESSION, CONNECT, RESOURCE TO hello;
+SQL> CONNECT hello/hello;
+SQL> CREATE TABLE hello_world (msg VARCHAR2(50));
+SQL> quit
+
+gedit arrayPrg.pc
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello";
+	char msg_buf[5][10]={"tree","bowl","hat"}; 
+	EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL
+		INSERT INTO hello_world VALUES (:msg_buf);
+	EXEC SQL COMMIT;
+	printf("\nThe values are inserted\n");
+	return(0);
+}
+void sql_error(char *msg) {
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("%s\n", msg);
+	EXEC SQL ROLLBACK RELEASE;
+	exit(1);
+}
+
+
+
+
+
+
+gedit arrayPrg.pc
+proc arrayPrg.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+gcc -o arrayPrg arrayPrg.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+./arrayPrg
+The values are inserted
