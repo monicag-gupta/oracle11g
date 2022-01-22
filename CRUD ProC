@@ -1,0 +1,199 @@
+Login as: root; password: 1234
+# su - oracle
+$ cd /u01/app/oracle/product/12.1.0/dhhome_1/bin
+$ export ORACLE_SID=orcl
+$ export ORACLE_HOME=/u01/app/oracle/product/12.1.0/dbhome_1
+$ export PATH=$ORACLE_HOME/bin:$PATH:.
+$ export LD_LIBRARY_PATH=$ORACLE_HOME/lib
+$ sqlplus
+SQL>  sys as sysdba
+SQL> shutdown immediate
+SQL> startup open
+SQL> CREATE USER hello IDENTIFIED BY hello DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+SQL> GRANT CREATE SESSION, CONNECT, RESOURCE TO hello;
+SQL> CONNECT hello/hello;
+SQL> CREATE TABLE hello_world (msg VARCHAR2(50));
+SQL> quit
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello", msg_buf[51]="";
+	printf("Enter message to be inserted in the hello_world table:\n");
+	scanf("%[^\n]",msg_buf);
+	EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL
+		INSERT INTO hello_world VALUES (:msg_buf);
+	EXEC SQL COMMIT;
+	printf("\nThe value %s is inserted\n", msg_buf);
+	return(0);
+}
+void sql_error(char *msg) {
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("%s\n", msg);
+	EXEC SQL ROLLBACK RELEASE;
+	exit(1);
+}
+
+
+$gedit CRUD_C.pc
+$ proc CRUD_C.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+$ gcc -o CRUD_C CRUD_C.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+$ ./CRUD_C
+Enter message to be inserted in the hello_world table:
+World of wonder
+
+The value World of wonder is inserted
+
+
+READ:
+
+CRUD_R
+
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello", msg_buf[51]="";
+	int count=0, i=1;
+	printf("The hello_world table: (msg)\n");
+	EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL SELECT COUNT(*) INTO :count FROM hello_world;
+	EXEC SQL DECLARE MSGCURSOR CURSOR FOR Select msg FROM hello_world;
+	EXEC SQL OPEN MSGCURSOR;
+	do{
+   		EXEC SQL FETCH MSGCURSOR INTO :msg_buf;
+		printf("\nRecord %d: %s \n", i++, msg_buf); 
+	}while(i<=count);
+	EXEC SQL CLOSE MSGCURSOR;
+	printf("\nEnd of Table!\n\n");
+	return(0);
+}
+void sql_error(char *msg) {
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("%s\n", msg);
+	EXEC SQL ROLLBACK RELEASE;
+	exit(1);
+}
+
+
+$gedit CRUD_R.pc
+$ proc CRUD_R.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+$ gcc -o CRUD_R CRUD_R.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+$ ./CRUD_R
+The hello_world table: (msg)
+
+Record 1: Hello world!                                       
+
+Record 2: World of wonder                                    
+
+Record 3: wow !                                         
+
+Record 4: Hello 
+
+End of Table!
+
+
+
+
+
+Update:
+
+CRUD_U
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello", msg_buf[51]="", msg_buf2[51]="";
+	printf("Enter Original message to be searched for updation in the hello_world table:\n");
+	gets(msg_buf);
+	printf("Enter the changed message to be updated in the hello_world table:\n");
+	gets(msg_buf2);
+	EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL
+		 UPDATE hello_world SET msg = :msg_buf2 WHERE msg = :msg_buf;
+	EXEC SQL COMMIT;
+	printf("\nThe value %s is updated to %s\n", msg_buf, msg_buf2);
+	return(0);
+}
+void sql_error(char *msg) {
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("%s\n", msg);
+	EXEC SQL ROLLBACK RELEASE;
+	exit(1);
+}
+
+
+$gedit CRUD_U.pc
+$ proc CRUD_U.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+$ gcc -o CRUD_U CRUD_U.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+$ ./CRUD_U
+Enter Original message to be searched for updation in the hello_world table:(End with 0):
+wow !
+Enter the changed message to be updated in the hello_world table:
+WOW Again!
+
+The value wow ! is updated to WOW Again!
+
+
+Delete:
+
+CRUD_D
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello", msg_buf[51]="";
+	printf("Enter message to be deleted in the hello_world table:\n");
+	gets(msg_buf);
+	EXEC SQL WHENEVER SQLERROR DO sql_error("ORACLE error\n");
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL
+		 DELETE hello_world WHERE msg = :msg_buf;
+	EXEC SQL COMMIT;
+	printf("\nThe value %s is deleted\n", msg_buf);
+	return(0);
+}
+void sql_error(char *msg) {
+	EXEC SQL WHENEVER SQLERROR CONTINUE;
+	printf("%s\n", msg);
+	EXEC SQL ROLLBACK RELEASE;
+	exit(1);
+}
+
+
+
+$gedit CRUD_D.pc
+$ proc CRUD_D.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include
+$ gcc -o CRUD_D CRUD_D.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+$ ./CRUD_D
+Enter message to be deleted in the hello_world table:
+WOW Again!
+
+The value WOW Again! is deleted
+
+
+
+
+
