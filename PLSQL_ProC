@@ -57,3 +57,45 @@ gcc -o plsql_p plsql_p.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib
 
 
 
+#include <stdio.h>
+#include <string.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+EXEC SQL INCLUDE SQLCA.H;
+void sql_error();
+int main(int argc, char** argv){
+	char msg_buf[51]="";
+	printf("\nEnter message to be inserted in the hello_world table through Procedure call HelloProcIns:\n");
+	scanf("%s",msg_buf);
+	EXEC SQL BEGIN DECLARE SECTION;
+	VARCHAR uid[30];
+	VARCHAR pwd[30];
+	EXEC SQL END DECLARE SECTION;
+	strcpy(uid.arr,"hello");
+	uid.len =strlen(uid.arr);
+	strcpy(pwd.arr,"hello");
+	pwd.len = strlen(pwd.arr);
+	EXEC SQL WHENEVER SQLERROR goto sql_error;
+	EXEC SQL CONNECT :uid IDENTIFIED BY :pwd;
+	EXEC SQL EXECUTE BEGIN  
+			hello.helloprocins(:msg_buf); 
+	END; END-EXEC;
+	printf("\nThe value %s is inserted\n", msg_buf);
+	return(0);
+	exit(0);
+sql_error: 
+EXEC SQL WHENEVER SQLERROR CONTINUE; 
+EXEC SQL ROLLBACK WORK RELEASE; 
+printf("Processing error\n"); 
+exit(1); 
+}
+
+
+
+
+
+
+
+
