@@ -1,0 +1,15 @@
+CREATE OR REPLACE PROCEDURE HelloProcIns (mesg VARCHAR2) 
+IS 
+BEGIN
+INSERT INTO hello_world VALUES(mesg);
+END;
+/
+
+
+EXECUTE HelloProcIns('Hi All');
+SELECT * FROM hello_world;
+MSG
+Hello world!
+World of wonder
+Hello
+Hi All
