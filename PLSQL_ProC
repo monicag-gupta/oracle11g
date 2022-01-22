@@ -13,3 +13,43 @@ Hello world!
 World of wonder
 Hello
 Hi All
+
+quit
+gedit plsql_p.pc
+
+
+
+#include <stdio.h>
+#include <sqlca.h>
+#include <sqlcpr.h>
+#include <oraca.h>
+#include <sqlda.h>
+void sql_error();
+int main(int argc, char** argv){
+	char user[]="hello", pwd[]="hello", msg_buf[51]="";
+	printf("\nEnter message to be inserted in the hello_world table through Procedure call HelloProcIns:\n");
+	scanf("%[^\n]",msg_buf);
+	EXEC SQL WHENEVER SQLERROR goto sql_error;
+	EXEC SQL CONNECT :user IDENTIFIED BY :pwd;
+	EXEC SQL EXECUTE BEGIN  
+			hello.helloprocins(:msg_buf); 
+	END; END-EXEC;
+	printf("\nThe value %s is inserted\n", msg_buf);
+	return(0);
+sql_error: 
+EXEC SQL WHENEVER SQLERROR CONTINUE; 
+EXEC SQL ROLLBACK WORK RELEASE; 
+printf("Processing error\n"); 
+exit(1); 
+}
+
+
+
+
+gedit plsql_p.pc
+proc plsql_p.pc define=__x86_64__ include=/usr/lib/gcc/x86_64-redhat-linux/4.4.4/include include=/usr/include SQLCHECK=SEMANTICS USERID=hello/hello
+gcc -o plsql_p plsql_p.c -m64 -I $ORACLE_HOME/precomp/public -L $ORACLE_HOME/lib  -lclntsh
+./plsql_p
+
+
+
