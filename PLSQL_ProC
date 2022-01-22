@@ -37,6 +37,7 @@ int main(int argc, char** argv){
 				helloprocins(:msg_buf); 
 			END; 	
 		END-EXEC;
+	EXEC SQL COMMIT WORK RELEASE; 
 	printf("\nThe value %s is inserted\n", msg_buf);
 	return(0);
 sql_error: 
